@@ -1,0 +1,118 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<title>JQuery UI插件</title>
+
+<script src="jquery-1.8.3.js"></script>
+<script src="./validate/jquery-ui-1.10.3.custom.js"></script>
+<script src="./validate/jquery.validate.js"></script>
+<script src="./validate/jquery.form.js"></script>
+<script src="./validate/jquery.validate.messages_zh.js"></script>
+<link rel="stylesheet" href="./validate/jquery-ui-1.10.3.custom.css" type="text/css" />
+<script>
+$(function(){
+	$("span").click(function(){
+		$("#reg").dialog({
+			"title":"注册",
+			"width":320,
+			"buttons":{
+				"注册":function(){
+					$("#reg").submit();
+				}
+			}
+		});
+		$("#reg").validate({
+			"submitHandler":function(){
+				//表单验证合法，里面写表单提交代码
+				$("#reg").ajaxSubmit({
+					"url":"regist.php",
+					"type":"post",
+					"success":function(response,status){
+						$("#box").html(response);
+					}
+				});
+			}
+		});
+		
+		$("#email").autocomplete({
+			"source":function(request,response){
+				//request.term 输入的内容
+				//response(ret) 接受数组作为参数，数组内容就是提示的内容
+				//host=1
+				var hosts = ["163.com","126.com","qq.com","sina.com.cn","139.com"];
+				var term = request.term;
+				var name = term;
+				var host = "";
+				var pos = term.indexOf("@");
+				var ret = [];
+				
+				//判断用户是否输入了@符号，如果有输入 则进行拆分，否则不拆分
+				if(pos>-1){
+					//如果pos值大于-1，
+					//则说明用户输入字符串中有"@",那么进行拆分
+					name = term.slice(0,pos);
+					host = term.substr(pos+1);	
+				}
+				
+				//拿host取大数组里面挨个找匹配项
+				if(name){
+					if(host){
+						//如果用户输入了域名部分，则进行过滤
+						//拿用户输入的域名 与 hosts数组中的挨个元素进行匹配
+						//如果 hosts数组中的元素包含host，则返回
+						var findHost = $.grep(hosts,function(value,key){
+							return value.indexOf(host)>-1;
+						});
+					}else{
+						findHost = hosts;
+					}
+					//以上 findHost 只有域名部分，
+					//将findHost里的每个元素都加上 name和@
+					//zz@1 findHost = [name@'163.com',"126.com","139.com"]
+					var result = $.map(findHost,function(value,key){
+						return name+"@"+value;
+					});				
+				}
+				response(result);
+				 
+				
+			}
+				
+		});
+		
+		$("#birthday").datepicker({
+			dayNamesMin: ["周日","周一","周二","周三","周四","周五","周六"], // Column headings for days starting at Sunday
+			dateFormat: "yy-mm-dd", // See format options on parseDate
+			firstDay: 1, // The first day of the week, Sun = 0, Mon = 1, ...
+			 	
+		});
+	});
+});
+</script>
+
+</head>
+ 
+<body>
+<span>注册</span>
+<form method="post" action="regist.php" style="display:none;" id="reg">
+<div id="box"></div>
+用户名：<input type="text" name="username" class="required" minlength="2" maxlength="10"/><br/><br/>
+密码：<input type="password" name="password" class="required" minlength="6" maxlength="8"/><br/><br/>
+邮箱：<input type="text" name="email" id="email" class="required email"/><br/><br/>
+生日：<input type="text" name="birthday" id="birthday" readonly="readonly"/><br/><br/>
+
+</form>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

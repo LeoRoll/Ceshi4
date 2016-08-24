@@ -1,0 +1,40 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<title>JQuery UI插件</title>
+
+<script src="jquery-1.8.3.js"></script>
+<script src="./validate/jquery-ui-1.10.3.custom.js"></script>
+<link rel="stylesheet" href="./validate/jquery-ui-1.10.3.custom.css" type="text/css" />
+<script>
+$(function(){
+	//var email = "qq@qq.com";
+	//var pos = email.indexOf("@");
+	//alert(email.slice(0,pos));
+	//alert(email.substr(pos+1));
+	var host = 6;
+	var hosts =["163.com","126.com","qq.com","sina.com.cn","139.com"];;
+	var result = $.grep(hosts,function(value,key){
+		return value.indexOf(host)>-1;
+	});
+	alert(result);
+});
+</script>
+
+</head>
+ 
+<body>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

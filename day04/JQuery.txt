@@ -1,0 +1,45 @@
+﻿JQuery
+自定义插件
+$.extend（{
+“nav”:function(){
+         插件执行代码
+}
+}）
+自定义插件的方法
+插件的名称：
+1、文件的扩展名称 .js
+2、建议命名方式：
+      jquery.插件名称.js
+
+
+
+在user表中添加一个字段
+alter table user add birthday varchar(10) not null;
+
+ CREATE TABLE `regist` (
+  `id` int(3) NOT NULL AUTO_INCREMENT,
+  `username` varchar(30) NOT NULL,
+  `password` varchar(30) NOT NULL,
+  `email` varchar(100) NOT NULL, 
+  `birthday` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 
+
+前段过滤
+1、提升用户体验
+2、减少服务器负载
+后端验证
+1、保证安全性
+      模拟提交：socket、curl
+
+
+
+
+
+
+
+
+
+
+
